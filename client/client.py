@@ -16,7 +16,7 @@ if len(sys.argv) != 3:
     HOST = '192.168.0.113'
     PORT = 65432        # Port to listen on (non-privileged ports are > 1023)
 else:
-    HOST, PORT, num_conns = sys.argv[1], int(sys.argv[2]), int(sys.argv[3])
+    HOST, PORT = sys.argv[1], int(sys.argv[2])
 
 
 server_addr = (HOST, PORT)

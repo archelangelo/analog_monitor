@@ -38,7 +38,7 @@ def set_analog_output(p_cpu, p_mem):
     print ('cpu:', p_cpu, 'memory:', p_mem, end='\r', flush=True)
     pass
 
-if len(sys.argv) != 2:
+if len(sys.argv) != 3:
     HOST = '192.168.0.113'
     PORT = 65432        # Port to listen on (non-privileged ports are > 1023)
 else:
