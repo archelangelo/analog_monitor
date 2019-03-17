@@ -20,7 +20,7 @@ def accept_wrapper(sock):
 def service_connection(key, mask):
     sock = key.fileobj
     data = key.data
-    if mask & selector.EVENT_READ:
+    if mask & selectors.EVENT_READ:
         recv_data = sock.recv(1024)
         if recv_data:
             data.inb += recv_data
@@ -30,12 +30,12 @@ def service_connection(key, mask):
             sock.close()
 
     if len(data.inb)>=8:
-        p_cpu, p_mem = struct.unpack('!ii', data.inb[:8]) # percentages of cpu and mem usage
+        p_cpu, p_mem = struct.unpack('!ff', data.inb[:8]) # percentages of cpu and mem usage
         data.inb = data.inb[8:]
         set_analog_output(p_cpu, p_mem)
 
 def set_analog_output(p_cpu, p_mem):
-    print ('cpu:', p_cpu, 'memory:', p_mem, end='\r', flush=True)
+    print ('cpu: {0:.1f}'.format(p_cpu), 'memory: {0:.1f}'.format(p_mem), end='\r', flush=True)
     pass
 
 if len(sys.argv) != 3:
