@@ -6,8 +6,10 @@ import selectors
 import sys
 import types
 import struct
+import Adafruit_MCP4725
 
 sel = selectors.DefaultSelector()
+dac = Adafruit_MCP4725.MCP4725()
 
 def accept_wrapper(sock):
     conn, addr = sock.accept()
@@ -36,7 +38,7 @@ def service_connection(key, mask):
 
 def set_analog_output(p_cpu, p_mem):
     print ('cpu: {0:.1f}'.format(p_cpu), 'memory: {0:.1f}'.format(p_mem), end='\r', flush=True)
-    pass
+    dac.set_voltage(int(p_cpu/100*4096/3.3))
 
 if len(sys.argv) != 3:
     HOST = '192.168.0.113'
